@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <UseSimulator>false</UseSimulator>
+    <UseEmulator>false</UseEmulator>
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <DeployOptionalPackages>false</DeployOptionalPackages>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SplashScreenSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</SplashScreenSource>
+    <AppIconSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</AppIconSource>
+    <Source>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</Source>
+    <SmallTileSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</SmallTileSource>
+    <MediumTileSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</MediumTileSource>
+    <WideTileSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</WideTileSource>
+    <LargeTileSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</LargeTileSource>
+    <PackageLogoSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</PackageLogoSource>
+    <BadgeLogoSource>D:\documents\Visual Studio 2017\Projects\MOSAD0\MOSAD0\Assets\timg.jpg</BadgeLogoSource>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,124 @@
+﻿<Page
+    x:Class="MOSAD1.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ms="using:MOSAD1.Models"
+    xmlns:vm="using:MOSAD1.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500">
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <RadioButton IsChecked="True" x:Name="WeatherButton">Weather</RadioButton>
+                <RadioButton x:Name="ExpressButton">Express</RadioButton>
+            </StackPanel>
+            <StackPanel Visibility="{x:Bind WeatherButton.IsChecked ,Mode=OneWay}">
+                <AutoSuggestBox x:Name="WeatherQueryBox"  QueryIcon="Find" PlaceholderText="Search" HorizontalAlignment="Center"  Width="200" QuerySubmitted="WeatherQueryButton_clicked"/>
+                <StackPanel>
+                    <StackPanel x:Name="now" Tag="当前天气">
+                        <TextBlock Text="{x:Bind weatherViewModel.basic.city,Mode=OneWay}" HorizontalTextAlignment="Center" Height="auto" FontSize="50"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind  weatherViewModel.nowWeather.cond.txt,Mode=OneWay}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="mintmp" Tag="最低温度" Text="{x:Bind  weatherViewModel.nowWeather.tmp,Mode=OneWay}"/>
+                            <TextBlock Text=" - "/>
+                            <TextBlock x:Name="maxtmp" Tag="最高温度" Text="{x:Bind  weatherViewModel.nowWeather.tmp,Mode=OneWay}"/>
+                            <TextBlock Text=" ℃"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" x:Name="Wind" >
+                            <TextBlock Text="{x:Bind weatherViewModel.nowWeather.wind.dir,Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind weatherViewModel.nowWeather.wind.sc,Mode=OneWay}"/>
+                            <TextBlock Text="级"/>
+                        </StackPanel>
+                        <StackPanel x:Name="suggestion">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="空气质量 :" />
+                                <TextBlock Text="{x:Bind weatherViewModel.suggestion.air.brf,Mode=OneWay}" />
+                            </StackPanel>
+                            <TextBlock Text="{x:Bind weatherViewModel.suggestion.air.txt,Mode=OneWay}" TextWrapping="Wrap" />
+                           
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="舒适程度 :" />
+                                <TextBlock Text="{x:Bind weatherViewModel.suggestion.comf.brf,Mode=OneWay}" />
+                            </StackPanel>
+                            <TextBlock Text="{x:Bind weatherViewModel.suggestion.comf.txt,Mode=OneWay}"  TextWrapping="Wrap"  />
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="穿衣指数 :" />
+                                <TextBlock Text="{x:Bind weatherViewModel.suggestion.drsg.brf,Mode=OneWay}" />
+                            </StackPanel>
+                            <TextBlock Text="{x:Bind weatherViewModel.suggestion.drsg.txt,Mode=OneWay}" TextWrapping="Wrap"  />
+                            
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <ListView  ItemsSource="{x:Bind weatherViewModel.daily_forecast,Mode=OneWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="ms:Daily_forecast">
+                            <UserControl>
+                                <StackPanel>
+                                    <TextBlock x:Name="date" Tag="日期" Text="{x:Bind date,Mode=OneWay}"></TextBlock>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="wed" Text="{x:Bind cond.txt_d}"/>
+                                        <TextBlock Text=" 转 "/>
+                                        <TextBlock x:Name="wen" Text="{x:Bind cond.txt_n}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="mintmp" Tag="最低温度" Text="{x:Bind  tmp.min}"/>
+                                        <TextBlock Text=" - "/>
+                                        <TextBlock x:Name="maxtmp" Tag="最高温度" Text="{x:Bind  tmp.max}"/>
+                                        <TextBlock Text=" ℃"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" x:Name="Wind" >
+                                        <TextBlock Text="{x:Bind wind.dir}" />
+                                        <TextBlock Text="{x:Bind wind.sc}"/>
+                                        <TextBlock Text="级"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </UserControl>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Horizontal"></ItemsWrapGrid>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </StackPanel>
+            <StackPanel Visibility="{x:Bind ExpressButton.IsChecked,Mode=OneWay}">
+                <ComboBox x:Name="select" HorizontalAlignment="Center" SelectedIndex="0" >
+                    <ComboBoxItem Content="申通" />
+                    <ComboBoxItem Content="顺丰" />
+                    <ComboBoxItem Content="圆通" />
+
+                </ComboBox>
+                <AutoSuggestBox x:Name="ExpressQueryBox"  QueryIcon="Find" PlaceholderText="Search" HorizontalAlignment="Center"  Width="200" QuerySubmitted="ExpressQueryButton_clicked"/>
+                <TextBlock Text="{x:Bind expressViewModel.expressInfoModel.company,Mode=OneWay}"/>
+                <TextBlock Text="{x:Bind expressViewModel.expressInfoModel.number,Mode=OneWay}"/>
+                <ListView ItemsSource="{x:Bind expressViewModel.expressInfoModel.infos,Mode=OneWay}" ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="ms:ExpressItem">
+                            <StackPanel>
+                                <TextBlock Text="{x:Bind datetime,Mode=OneWay}"/>
+                                <TextBlock Text="{x:Bind remark,Mode=OneWay}"/>
+                                <TextBlock Text="{x:Bind zone,Mode=OneWay}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+
+        </StackPanel>
+        
+    </Grid>
+    <Page.Resources>
+        <!--横向布局-->
+        <ItemsPanelTemplate x:Key="HorizontalItemsPanelTemplate">
+            <VirtualizingStackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+    </Page.Resources>
+</Page>
